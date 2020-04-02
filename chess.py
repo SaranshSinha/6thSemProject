@@ -39,7 +39,7 @@ class GamePosition:
         self.history = history #A dictionary that stores as key a position (hashed) and the value of each of
         #these keys represents the number of times each of these positions was repeated in order for this
         #position to be reached.
-        
+
     def getboard(self):
         return self.board
     def setboard(self,board):
@@ -115,7 +115,7 @@ class Piece:
             left_y = 0
         else:
             left_y = square_height
-        
+
         self.pieceinfo = pieceinfo
         #subsection defines the part of the sprite image that represents our
         #piece:
@@ -174,8 +174,8 @@ class Piece:
 # pieces of the particular color passed to this function as an argument. In other words,
 # if 'white' is passed in, it will not return any white occupied square.
 #
-# lookfor(board,piece) - This functions takes the 2D array that represents a board and finds 
-# the indices of all the locations that is occupied by the specified piece. The list of 
+# lookfor(board,piece) - This functions takes the 2D array that represents a board and finds
+# the indices of all the locations that is occupied by the specified piece. The list of
 # indices is returned.
 #
 # isAttackedby(position,target_x,target_y,color) - This function checks if the square specified
@@ -183,7 +183,7 @@ class Piece:
 #
 # findPossibleSquares(position,x,y,AttackSearch=False) - This function takes as its input the
 # current state of the chessboard, and a particular x and y coordinate. It will return for the
-# piece on that board a list of possible coordinates it could move to, including captures and 
+# piece on that board a list of possible coordinates it could move to, including captures and
 # excluding illegal moves (eg moves that leave a king under check). AtttackSearch is an
 # argument used to ensure infinite recursions do not occur.
 #
@@ -196,7 +196,7 @@ class Piece:
 # 'w', for example.
 #
 # isCheck(position,color) - This function takes a position as its input and checks if the
-# King of the specified color is under attack by the enemy. Returns true if that is the case, 
+# King of the specified color is under attack by the enemy. Returns true if that is the case,
 # and false otherwise.
 #
 # isCheckmate(position,color=-1) - This function tells you if a position is a checkmate.
@@ -212,7 +212,7 @@ class Piece:
 # allMoves(position, color) - This function takes as its argument a position and a color/colorsign
 # that represents a side. It generates a list of all possible moves for that side and returns it.
 #
-# pos2key(position) - This function takes a position as input argument. For this particular 
+# pos2key(position) - This function takes a position as input argument. For this particular
 # position, it will generate a unique key that can be used in a dictionary by making it hashable.
 #
 
@@ -221,7 +221,7 @@ class Piece:
 # (4,7). It returns the top left corner pixel at which a piece of the given size should be
 # placed on the board for it to appear at the correct square.
 #
-# pixel_coord_to_chess(pixel_coord) - Does the exact opposite of above, namely taking the 
+# pixel_coord_to_chess(pixel_coord) - Does the exact opposite of above, namely taking the
 # pixel coordinate and giving back the chess coordinate of a particular square.
 #
 # getPiece(chess_coord) - Gives back the reference to the Piece object that occupies
@@ -229,7 +229,7 @@ class Piece:
 #
 # createPieces(board) - Loops through all the pieces in the inputted board array
 # and creates an instance of Piece class for each of them. Returns a list of two
-# lists: one that contains all the references to the white pieces, and the other 
+# lists: one that contains all the references to the white pieces, and the other
 # for black.
 #
 # createShades(listofTuples) - This will modify the global list listofShades. It
@@ -244,28 +244,28 @@ class Piece:
 
 ##//////////////////////////////////////AI RELATED FUNCTIONS////////////////////////////////
 #
-# negamax(position,depth,alpha,beta,colorsign,bestMoveReturn,root=True) - This 
-# function takes as its inputs a position, and a depth to which moves should be 
+# negamax(position,depth,alpha,beta,colorsign,bestMoveReturn,root=True) - This
+# function takes as its inputs a position, and a depth to which moves should be
 # analysed. It will generate moves and analyse resulting positions to decide the
 # best move to be played for the AI. Alpha and beta are lower and upper bounds to
 # a position's possible
 # score values and allows for alpha-beta pruning. Colorsign indicates the player
 # to move. bestMoveReturn is a list that will be assigned the move to be played.
-# Returning is not possible in this case because threading is used. root is a 
-# variable that keeps track of whether the original node is processing now or a 
+# Returning is not possible in this case because threading is used. root is a
+# variable that keeps track of whether the original node is processing now or a
 # lower node. Alpha beta pruning is not explained in detail here so I recommend
 # learning more about it if the code does not make sense.
 # Note that the function does not always traverse a tree to give back the move
-# to be played by the AI. It also checks the opening table to see if there is a 
+# to be played by the AI. It also checks the opening table to see if there is a
 # prerecorded move that it can play without searching. Scoring of each position
-# is also stored in a global dictionary to allow for time-saving if the same 
-# position occurs elsewhere in the tree. The code used here is adapted from the 
+# is also stored in a global dictionary to allow for time-saving if the same
+# position occurs elsewhere in the tree. The code used here is adapted from the
 # pseudocode provided at Wikipidea:
 # https://en.wikipedia.org/wiki/Negamax#Negamax_with_alpha_beta_pruning
 #
 # evaluate(position) - This function takes as input a position to be analysed.
 # It will look at the positioning of pieces on the board to judge whether white
-# has an advantage or black. If it returns zero, it means it considers the 
+# has an advantage or black. If it returns zero, it means it considers the
 # position to be equal for both sides. A positive value is an advantage to the
 # white side and a negative value is an advantage to the black side.
 #
@@ -283,7 +283,7 @@ class Piece:
 # for a player. These are pawns that do not have supporting pawns on adjacent files
 # and so are difficult to protect.
 #
-# 
+#
 ##################################/////CHESS PROCESSING FUNCTIONS\\\\########################
 def drawText(board):
     for i in range(len(board)):
@@ -343,7 +343,7 @@ def isAttackedby(position,target_x,target_y,color):
                 #prevents infinite recursion.
     #Check if the target square falls under the range of attack by the specified
     #side, and return it:
-    return (target_x,target_y) in listofAttackedSquares             
+    return (target_x,target_y) in listofAttackedSquares
 def findPossibleSquares(position,x,y,AttackSearch=False):
     #Get individual component data from the position object:
     board = position.getboard()
@@ -352,7 +352,7 @@ def findPossibleSquares(position,x,y,AttackSearch=False):
     EnP_Target = position.getEnP()
     #In case something goes wrong:
     if len(board[y][x])!=2: #Unexpected, return empty list.
-        return [] 
+        return []
     piece = board[y][x][0] #Pawn, rook, etc.
     color = board[y][x][1] #w or b.
     #Have the complimentary color stored for convenience:
@@ -364,11 +364,11 @@ def findPossibleSquares(position,x,y,AttackSearch=False):
             if not isOccupied(board,x,y-1) and not AttackSearch:
                 #The piece immediately above is not occupied, append it.
                 listofTuples.append((x,y-1))
-                
+
                 if y == 6 and not isOccupied(board,x,y-2):
                     #If pawn is at its initial position, it can move two squares.
                     listofTuples.append((x,y-2))
-            
+
             if x!=0 and isOccupiedby(board,x-1,y-1,'black'):
                 #The piece diagonally up and left of this pawn is a black piece.
                 #Also, this is not an 'a' file pawn (left edge pawn)
@@ -382,7 +382,7 @@ def findPossibleSquares(position,x,y,AttackSearch=False):
                     #We're at the correct location to potentially perform en
                     #passant:
                     listofTuples.append(EnP_Target)
-            
+
         elif color=='b': #The piece is black, same as above but opposite side.
             if not isOccupied(board,x,y+1) and not AttackSearch:
                 listofTuples.append((x,y+1))
@@ -403,7 +403,7 @@ def findPossibleSquares(position,x,y,AttackSearch=False):
             while True: #loop till break.
                 kx = kx + i #Searching left or right
                 if kx<=7 and kx>=0: #Making sure we're still in board.
-                    
+
                     if not isOccupied(board,kx,y):
                         #The square being looked at it empty. Our rook can move
                         #here.
@@ -411,22 +411,22 @@ def findPossibleSquares(position,x,y,AttackSearch=False):
                     else:
                         #The sqaure being looked at is occupied. If an enemy
                         #piece is occupying it, it can be captured so its a valid
-                        #move. 
+                        #move.
                         if isOccupiedby(board,kx,y,enemy_color):
                             listofTuples.append((kx,y))
                         #Regardless of the occupying piece color, the rook cannot
                         #jump over. No point continuing search beyond in this
                         #direction:
                         break
-                        
+
                 else: #We have exceeded the limits of the board
                     break
         #Now using the same method, get the vertical squares:
         for i in [-1,1]:
             ky = y
             while True:
-                ky = ky + i 
-                if ky<=7 and ky>=0: 
+                ky = ky + i
+                if ky<=7 and ky>=0:
                     if not isOccupied(board,x,ky):
                         listofTuples.append((x,ky))
                     else:
@@ -435,7 +435,7 @@ def findPossibleSquares(position,x,y,AttackSearch=False):
                         break
                 else:
                     break
-        
+
     elif piece == 'N': #The piece is a knight.
         #The knight can jump across a board. It can jump either two or one
         #squares in the x or y direction, but must jump the complimentary amount
@@ -474,12 +474,12 @@ def findPossibleSquares(position,x,y,AttackSearch=False):
                                 listofTuples.append((kx,ky))
                             #Bishops cannot jump over other pieces so terminate
                             #the search here:
-                            break    
+                            break
                     else:
                         #Square is not on board. Stop looking for more in this
                         #direction:
                         break
-    
+
     elif piece == 'Q': #A queen
         #A queen's possible targets are the union of all targets that a rook and
         #a bishop could have made from the same location
@@ -558,7 +558,7 @@ def makemove(position,x,y,x2,y2):
     #Make the move:
     board[y2][x2] = board[y][x]
     board[y][x] = 0
-    
+
     #Special piece requirements:
     #King:
     if piece == 'K':
@@ -571,7 +571,7 @@ def makemove(position,x,y,x2,y2):
                 l = 7
             else:
                 l = 0
-            
+
             if x2>x:
                     board[l][5] = 'R'+color
                     board[l][7] = 0
@@ -607,7 +607,7 @@ def makemove(position,x,y,x2,y2):
             EnP_Target = (x,(y+y2)/2)
         else:
             EnP_Target = -1
-        #If a pawn moves towards the end of the board, it needs to 
+        #If a pawn moves towards the end of the board, it needs to
         #be promoted. Note that in this game a pawn is being promoted
         #to a queen regardless of user choice.
         if y2==0:
@@ -621,8 +621,8 @@ def makemove(position,x,y,x2,y2):
 
     #Since a move has been made, the other player
     #should be the 'side to move'
-    player = 1 - player    
-    #Update the position data:       
+    player = 1 - player
+    #Update the position data:
     position.setplayer(player)
     position.setCastleRights(castling_rights)
     position.setEnP(EnP_Target)
@@ -646,7 +646,7 @@ def isCheck(position,color):
     #the enemy and return the result:
     return isAttackedby(position,x,y,enemy)
 def isCheckmate(position,color=-1):
-    
+
     if color==-1:
         return isCheckmate(position,'white') or isCheckmate(position,'b')
     color = color[0]
@@ -719,7 +719,7 @@ def chess_coord_to_pixels(chess_coord):
     #There are two sets of coordinates that this function could choose to return.
     #One is the coordinates that would be usually returned, the other is one that
     #would be returned if the board were to be flipped.
-    #Note that square width and height variables are defined in the main function and 
+    #Note that square width and height variables are defined in the main function and
     #so are accessible here as global variables.
     if isAI:
         if AIPlayer==0:
@@ -729,7 +729,7 @@ def chess_coord_to_pixels(chess_coord):
             return (x*square_width, y*square_height)
     #Being here means two player game is being played.
     #If the flipping mode is enabled, and the player to play is black,
-    #the board should flip, but not until the transition animation for 
+    #the board should flip, but not until the transition animation for
     #white movement is complete:
     if not isFlip or player==0 ^ isTransition:
         return (x*square_width, y*square_height)
@@ -791,7 +791,7 @@ def createShades(listofTuples):
         #There is no need to go further:
         return
     if chessEnded:
-        #The game has ended, with a checkmate because it cannot be a 
+        #The game has ended, with a checkmate because it cannot be a
         #draw if the code reached here.
         #Give the winning king a green circle shade:
         coord = lookfor(board,'K'+winner)[0]
@@ -854,7 +854,7 @@ def drawBoard():
 
     #Potentially captured pieces:
     for piece in order[0]:
-        
+
         chess_coord,subsection,pos = piece.getInfo()
         pixel_coord = chess_coord_to_pixels(chess_coord)
         if pos==(-1,-1):
@@ -883,6 +883,8 @@ def drawBoard():
 ###########################////////AI RELATED FUNCTIONS\\\\\\\\\\############################
 
 def negamax(position,depth,alpha,beta,colorsign,bestMoveReturn,root=True):
+    print "inside function, depth:"
+    print depth
     #First check if the position is already stored in the opening database dictionary:
     if root:
         #Generate key from current position:
@@ -976,9 +978,9 @@ def evaluate(position):
     if numofmoves>40 or (whiteMaterial<14 and blackMaterial<14):
         gamephase = 'ending'
     #A note again: Determining game phase is again one the attempts
-    #to make the AI smarter when analysing boards and has not been 
+    #to make the AI smarter when analysing boards and has not been
     #implemented to its full potential.
-    #Calculate number of doubled, blocked, and isolated pawns for 
+    #Calculate number of doubled, blocked, and isolated pawns for
     #both sides:
     Dw = doubledPawns(board,'white')
     Db = doubledPawns(board,'black')
@@ -1031,7 +1033,7 @@ def pieceSquareTable(flatboard,gamephase):
                 score+=sign*king_table[i]
             else:
                 score+=sign*king_endgame_table[i]
-    return score  
+    return score
 def doubledPawns(board,color):
     color = color[0]
     #Get indices of pawns:
@@ -1096,7 +1098,7 @@ castling_rights = [[True, True],[True, True]]
 #either side of the king. (Kingside, Queenside)
 En_Passant_Target = -1 #This variable will store a coordinate if there is a square that can be
                        #en passant captured on. Otherwise it stores -1, indicating lack of en passant
-                       #targets. 
+                       #targets.
 half_move_clock = 0 #This variable stores the number of reversible moves that have been played so far.
 #Generate an instance of GamePosition class to store the above data:
 position = GamePosition(board,player,castling_rights,En_Passant_Target
@@ -1239,7 +1241,7 @@ listofShades = []
 
 clock = pygame.time.Clock() #Helps controlling fps of the game.
 isDown = False #Variable that shows if the mouse is being held down
-               #onto a piece 
+               #onto a piece
 isClicked = False #To keep track of whether a piece was clicked in order
 #to indicate intention to move by the user.
 isTransition = False #Keeps track of whether or not a piece is being animated.
@@ -1262,7 +1264,7 @@ except:
 
 searched = {} #Global variable that allows negamax to keep track of nodes that have
 #already been evaluated.
-prevMove = [-1,-1,-1,-1] #Also a global varible that stores the last move played, to 
+prevMove = [-1,-1,-1,-1] #Also a global varible that stores the last move played, to
 #allow drawBoard() to create Shades on the squares.
 #Initialize some more values:
 #For animating AI thinking graphics:
@@ -1275,8 +1277,14 @@ isFlip = -1
 AIPlayer = -1
 #Finally, a variable to keep false until the user wants to quit:
 gameEnded = False
-#########################INFINITE LOOP#####################################
+######################### Starting the application #####################################
 #The program remains in this loop until the user quits the application
+input_box = pygame.Rect(100, 100, 140, 32)
+color_inactive = pygame.Color('lightskyblue3')
+color_active = pygame.Color('dodgerblue2')
+color_default = color_inactive
+active_box = False
+levelString = ''
 while not gameEnded:
     if isMenu:
         #Menu needs to be shown right now.
@@ -1291,6 +1299,32 @@ while not gameEnded:
         elif isAI==True:
             #The user has selected to play against the AI.
             #Allow the user to play as white or black:
+
+            font1 = pygame.font.Font('freesansbold.ttf', 32)
+            green = (0, 255, 0)
+            blue = (0, 0, 128)
+# create a text suface object,
+# on which text is drawn on it.
+            text = font1.render('Please choose a level', True, green, blue)
+
+# create a rectangular object for the
+# text surface object
+            textRect = text.get_rect()
+
+# set the center of the rectangular object.
+
+            screen.blit(text, textRect)
+            font = pygame.font.SysFont("comicsansms", 72)
+            txt_surface = font.render(levelString, True, color_default)
+        # Resize the box if the text is too long.
+            width = max(200, txt_surface.get_width()+10)
+            input_box.w = width
+        # Blit the text.
+            screen.blit(txt_surface, (input_box.x+5, input_box.y+5))
+        # Blit the input_box rect.
+            pygame.draw.rect(screen, color_default, input_box, 2)
+            #print "level taken!"
+
             screen.blit(playwhite_pic,(0,square_height*2))
             screen.blit(playblack_pic,(square_width*4,square_height*2))
         elif isAI==False:
@@ -1304,13 +1338,13 @@ while not gameEnded:
             drawBoard()
             #Don't let the menu ever appear again:
             isMenu = False
-            #In case the player chose to play against the AI and decided to 
+            #In case the player chose to play against the AI and decided to
             #play as black, call upon the AI to make a move:
             if isAI and AIPlayer==0:
                 colorsign=1
                 bestMoveReturn = []
                 move_thread = threading.Thread(target = negamax,
-                            args = (position,3,-1000000,1000000,colorsign,bestMoveReturn))
+                            args = (position,int(levelString),-1000000,1000000,colorsign,bestMoveReturn))
                 move_thread.start()
                 isAIThink = True
             continue
@@ -1320,6 +1354,26 @@ while not gameEnded:
                 #Window was closed.
                 gameEnded = True
                 break
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                # If the user clicked on the input_box rect.
+                if input_box.collidepoint(event.pos):
+
+                    # Toggle the active variable.
+                    active = not active
+                else:
+                    active = False
+                # Change the current color of the input box.
+                color_default = color_active if active else color_inactive
+            if event.type == pygame.KEYDOWN:
+                if active:
+                    if event.key == pygame.K_RETURN:
+                        print levelString
+
+                    elif event.key == pygame.K_BACKSPACE:
+                        levelString = levelString[:-1]
+                    else:
+                        levelString += event.unicode
+
             if event.type == MOUSEBUTTONUP:
                 #The mouse was clicked somewhere.
                 #Get the coordinates of click:
@@ -1376,13 +1430,13 @@ while not gameEnded:
             listofShades.append(Shades(greenbox_image,(7-ax,7-ay)))
         else:
             listofShades.append(Shades(greenbox_image,(ax,ay)))
-    
+
     for event in pygame.event.get():
         #Deal with all the user inputs:
         if event.type==QUIT:
             #Window was closed.
             gameEnded = True
-        
+
             break
         #Under the following conditions, user input should be
         #completely ignored:
@@ -1401,7 +1455,7 @@ while not gameEnded:
             #ignore this mouse click:
             if not isOccupiedby(board,x,y,'wb'[player]):
                 continue
-            #Now we're sure the user is holding their mouse on a 
+            #Now we're sure the user is holding their mouse on a
             #piecec that is theirs.
             #Get reference to the piece that should be dragged around or selected:
             dragPiece = getPiece(chess_coord)
@@ -1418,7 +1472,7 @@ while not gameEnded:
             else:
                 listofShades.append(Shades(greenbox_image,(x,y)))
             #A piece is being dragged:
-            isDown = True       
+            isDown = True
         if (isDown or isClicked) and event.type == MOUSEBUTTONUP:
             #Mouse was released.
             isDown = False
@@ -1431,7 +1485,7 @@ while not gameEnded:
             y2 = chess_coord[1]
             #Initialize:
             isTransition = False
-            if (x,y)==(x2,y2): #NO dragging occured 
+            if (x,y)==(x2,y2): #NO dragging occured
                 #(ie the mouse was held and released on the same square)
                 if not isClicked: #nothing had been clicked previously
                     #This is the first click
@@ -1441,7 +1495,7 @@ while not gameEnded:
                     #Find out location of previous click:
                     x,y = prevPos
                     if (x,y)==(x2,y2): #User clicked on the same square again.
-                        #So 
+                        #So
                         isClicked = False
                         #Destroy all shades:
                         createShades([])
@@ -1459,7 +1513,7 @@ while not gameEnded:
                             #Destory all shades
                             createShades([])
                             isTransition = True #Possibly if the move was valid.
-                            
+
 
             if not (x2,y2) in listofTuples:
                 #Move was invalid
@@ -1470,9 +1524,9 @@ while not gameEnded:
             if isRecord:
                 key = pos2key(position)
                 #Make sure it isn't already in there:
-                if [(x,y),(x2,y2)] not in openings[key]: 
+                if [(x,y),(x2,y2)] not in openings[key]:
                     openings[key].append([(x,y),(x2,y2)])
-                
+
             #Make the move:
             makemove(position,x,y,x2,y2)
             #Update this move to be the 'previous' move (latest move in fact), so that
@@ -1504,7 +1558,7 @@ while not gameEnded:
                     colorsign = -1
                 bestMoveReturn = []
                 move_thread = threading.Thread(target = negamax,
-                            args = (position,2,-1000000,1000000,colorsign,bestMoveReturn))
+                            args = (position,int(levelString),-1000000,1000000,colorsign,bestMoveReturn))
                 move_thread.start()
                 isAIThink = True
             #Move the piece to its new destination:
@@ -1519,7 +1573,7 @@ while not gameEnded:
                 destiny = chess_coord_to_pixels((x2,y2))
                 movingPiece.setpos(origin)
                 step = (destiny[0]-origin[0],destiny[1]-origin[1])
-            
+
             #Either way shades should be deleted now:
             createShades([])
     #If an animation is supposed to happen, make it happen:
@@ -1545,7 +1599,7 @@ while not gameEnded:
         dragPiece.setpos((m-square_width/2,k-square_height/2))
     #If the AI is thinking, make sure to check if it isn't done thinking yet.
     #Also, if a piece is currently being animated don't ask the AI if it's
-    #done thining, in case it replied in the affirmative and starts moving 
+    #done thining, in case it replied in the affirmative and starts moving
     #at the same time as your piece is moving:
     if isAIThink and not isTransition:
         if not move_thread.isAlive():
