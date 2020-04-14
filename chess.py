@@ -25,6 +25,8 @@ from collections import defaultdict #Used for giving dictionary values default d
 from collections import Counter #For counting elements in a list effieciently.
 import threading #To allow for AI to think simultaneously while the GUI is coloring the board.
 import os #To allow path joining with cross-platform support
+import Tkinter
+import tkMessageBox
 class GamePosition:
     def __init__(self,board,player,castling_rights,EnP_Target,HMC,history = {}):
         self.board = board #A 2D array containing information about piece postitions. Check main
@@ -883,8 +885,8 @@ def drawBoard():
 ###########################////////AI RELATED FUNCTIONS\\\\\\\\\\############################
 
 def negamax(position,depth,alpha,beta,colorsign,bestMoveReturn,root=True):
-    print "inside function, depth:"
-    print depth
+    #print "inside function, depth:"
+    #print depth
     #First check if the position is already stored in the opening database dictionary:
     if root:
         #Generate key from current position:
@@ -1230,7 +1232,7 @@ flipDisabled_pic = pygame.transform.scale(flipDisabled_pic,
 #Make a window of the same size as the background, set its title, and
 #load the background image onto it (the board):
 screen = pygame.display.set_mode(size_of_bg)
-pygame.display.set_caption('Shallow Green')
+pygame.display.set_caption('CheckMate')
 screen.blit(background,(0,0))
 
 #Generate a list of pieces that should be drawn on the board:
@@ -1305,7 +1307,7 @@ while not gameEnded:
             blue = (0, 0, 128)
 # create a text suface object,
 # on which text is drawn on it.
-            text = font1.render('Please choose a level', True, green, blue)
+            text = font1.render('Choose difficulty level and press enter!', True, green, blue)
 
 # create a rectangular object for the
 # text surface object
@@ -1314,13 +1316,14 @@ while not gameEnded:
 # set the center of the rectangular object.
 
             screen.blit(text, textRect)
-            font = pygame.font.SysFont("comicsansms", 72)
+            font = pygame.font.SysFont("comicsansms",72)
             txt_surface = font.render(levelString, True, color_default)
         # Resize the box if the text is too long.
-            width = max(200, txt_surface.get_width()+10)
+            width = min(500, txt_surface.get_width()+10)
             input_box.w = width
+            input_box.h=txt_surface.get_height()
         # Blit the text.
-            screen.blit(txt_surface, (input_box.x+5, input_box.y+5))
+            screen.blit(txt_surface, (input_box.x+5, input_box.y-20))
         # Blit the input_box rect.
             pygame.draw.rect(screen, color_default, input_box, 2)
             #print "level taken!"
@@ -1365,10 +1368,13 @@ while not gameEnded:
                 # Change the current color of the input box.
                 color_default = color_active if active else color_inactive
             if event.type == pygame.KEYDOWN:
+                if event.key==pygame.K_b:
+                   pass
+                    #gameEnded=True
                 if active:
                     if event.key == pygame.K_RETURN:
-                        print levelString
-
+                        Tkinter.Tk().withdraw() #to hide the main window
+                        tkMessageBox.showinfo('Confirm?','You chose level: '+levelString)
                     elif event.key == pygame.K_BACKSPACE:
                         levelString = levelString[:-1]
                     else:
@@ -1416,7 +1422,7 @@ while not gameEnded:
     #that.
     #Do it every 6 frames so it's not too fast:
     numm+=1
-    if isAIThink and numm%6==0:
+    if isAIThink and numm%3==0:
         ax+=1
         if ax==8:
             ay+=1
@@ -1438,6 +1444,11 @@ while not gameEnded:
             gameEnded = True
 
             break
+        if event.type==pygame.KEYDOWN:
+            if event.key==pygame.K_b:
+                pass
+                #screen.blit(background,(0,0))
+
         #Under the following conditions, user input should be
         #completely ignored:
         if chessEnded or isTransition or isAIThink:
